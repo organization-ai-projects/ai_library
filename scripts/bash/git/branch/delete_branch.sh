@@ -1,3 +1,4 @@
+
 #!/bin/bash
 # Delete a local and remote branch if merged (EN/FR)
 
