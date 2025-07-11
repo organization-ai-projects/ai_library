@@ -2,11 +2,17 @@
 //!
 //! - Tokenisation
 //! - Vectorisation
-//! - Nettoyage
+//! - Nettoyage (à venir)
 
 /// Tokenise et vectorise un vecteur de textes.
 /// Ici, chaque mot est représenté par sa longueur (stub).
-
+///
+/// # Exemple
+/// ```
+/// let texts = vec![String::from("hello world")];
+/// let vecs = preprocess_texts(&texts);
+/// assert_eq!(vecs[0], vec![5.0, 5.0]);
+/// ```
 pub fn preprocess_texts(texts: &[String]) -> Vec<Vec<f32>> {
     texts
         .iter()
@@ -14,24 +20,14 @@ pub fn preprocess_texts(texts: &[String]) -> Vec<Vec<f32>> {
         .collect()
 }
 
-/// Nettoie le texte : suppression de la ponctuation et passage en minuscules.
-pub fn clean_texts(texts: &[String]) -> Vec<String> {
-    texts
-        .iter()
-        .map(|txt| {
-            txt.to_lowercase()
-                .replace(|c: char| !c.is_alphanumeric() && !c.is_whitespace(), "")
-        })
-        .collect()
+/// Nettoie le texte (stub).
+pub fn clean_texts(_texts: &[String]) -> Vec<String> {
+    // À implémenter : suppression ponctuation, lowercasing, etc.
+    todo!("clean_texts à compléter")
 }
 
-/// Vectorise le texte via embeddings (mock : somme des longueurs des mots).
-pub fn embed_texts(texts: &[String]) -> Vec<Vec<f32>> {
-    texts
-        .iter()
-        .map(|txt| {
-            let sum = txt.split_whitespace().map(|w| w.len() as f32).sum();
-            vec![sum]
-        })
-        .collect()
+/// Vectorise le texte via embeddings (stub).
+pub fn embed_texts(_texts: &[String]) -> Vec<Vec<f32>> {
+    // À implémenter : mocker avec random ou utiliser une lib
+    todo!("embed_texts à compléter")
 }
