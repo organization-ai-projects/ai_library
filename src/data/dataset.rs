@@ -1,13 +1,5 @@
 //! Module central pour gérer les datasets multi-types et multi-fichiers.
 
-use crate::data::preprocessing::audio;
-use crate::data::preprocessing::graph;
-use crate::data::preprocessing::image;
-use crate::data::preprocessing::tabular;
-use crate::data::preprocessing::text;
-use crate::data::preprocessing::timeseries;
-use crate::data::preprocessing::video;
-
 /// Enum représentant les différents types de datasets.
 #[derive(Clone, Debug)]
 pub enum DatasetType {
@@ -51,32 +43,33 @@ impl MultiFileDataset {
         self.datasets
             .iter()
             .map(|ds| match ds {
-                DatasetType::Image(images) => DatasetType::Image(
-                    image::preprocess_images(images)
-                        .into_iter()
-                        .map(|img| img.into_iter().map(|f| (f * 255.0) as u8).collect())
-                        .collect(),
-                ),
+                DatasetType::Image(images) => {
+                    DatasetType::Image(crate::data::preprocessing::image::preprocess_images(images))
+                }
                 DatasetType::Text(texts) => DatasetType::Text(
-                    text::preprocess_texts(texts)
+                    crate::data::preprocessing::text::preprocess_texts(texts)
                         .into_iter()
                         .map(|v| v.iter().map(|f| f.to_string()).collect::<String>())
                         .collect(),
                 ),
-                DatasetType::Timeseries(series) => {
-                    DatasetType::Timeseries(timeseries::preprocess_timeseries(series))
+                DatasetType::Timeseries(series) => DatasetType::Timeseries(
+                    crate::data::preprocessing::timeseries::preprocess_timeseries(series),
+                ),
+                DatasetType::Audio(audio) => {
+                    DatasetType::Audio(crate::data::preprocessing::audio::preprocess_audio(audio))
                 }
-                DatasetType::Audio(audio) => DatasetType::Audio(audio::preprocess_audio(audio)),
                 DatasetType::Video(videos) => DatasetType::Video(
-                    video::preprocess_video(videos)
+                    crate::data::preprocessing::video::preprocess_video(videos)
                         .into_iter()
                         .map(|v| v.iter().map(|f| (*f * 255.0) as u8).collect())
                         .collect(),
                 ),
-                DatasetType::Tabular(table) => {
-                    DatasetType::Tabular(tabular::preprocess_tabular(table))
+                DatasetType::Tabular(table) => DatasetType::Tabular(
+                    crate::data::preprocessing::tabular::preprocess_tabular(table),
+                ),
+                DatasetType::Graph(graphs) => {
+                    DatasetType::Graph(crate::data::preprocessing::graph::preprocess_graph(graphs))
                 }
-                DatasetType::Graph(graphs) => DatasetType::Graph(graph::preprocess_graph(graphs)),
                 DatasetType::Mixed(mixed) => {
                     let processed = mixed
                         .iter()

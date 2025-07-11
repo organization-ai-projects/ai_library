@@ -1,13 +1,12 @@
 //ai_library/src/data/processor.rs
-use crate::data::normalization;
-use crate::data::preprocessing::image;
-use crate::data::preprocessing::text;
-use crate::data::preprocessing::timeseries;
+pub mod image;
+pub mod text;
+pub mod timeseries;
 
 /// Applique un pré-traitement générique sur les données (normalisation, filtrage, etc.).
 pub fn preprocess_data(data: &[f32]) -> Vec<f32> {
     // Exemple d'utilisation du module normalization
-    normalization::normalize(data)
+    super::normalization::normalize(data)
 }
 
 /// Prétraite un dataset image.
