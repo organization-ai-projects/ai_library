@@ -25,19 +25,19 @@ fi
 
 git fetch origin
 
-echo "Vérification : commits de $BR non présents dans origin/$MAIN..."
-if git log origin/$MAIN..$BR | grep .; then
-    echo "⛔️ La branche $BR n'est PAS mergée dans origin/$MAIN."
+echo "Vérification : commits de \"$BR\" non présents dans origin/$MAIN..."
+if git log origin/$MAIN.."$BR" | grep .; then
+    echo "⛔️ La branche \"$BR\" n'est PAS mergée dans origin/$MAIN."
     echo "Suppression refusée."
     exit 1
 fi
 
-echo "✅ La branche $BR a bien été mergée dans $MAIN."
+echo "✅ La branche \"$BR\" a bien été mergée dans $MAIN."
 echo "Suppression locale..."
-git branch -d $BR || git branch -D $BR
+git branch -d "$BR" || git branch -D "$BR"
 
 echo "Suppression côté remote (origin)..."
-git push origin --delete $BR
+git push origin --delete "$BR"
 
 echo "✔️ Suppression effectuée avec succès !"
 
