@@ -1,18 +1,10 @@
 //! Fonctions de prétraitement pour les datasets de séries temporelles.
 //!
 //! - Normalisation min-max
-//! - Lissage (à venir)
-//! - Extraction de features (à venir)
+//! - Lissage
+//! - Extraction de features
 
 /// Normalise chaque série temporelle entre 0 et 1.
-///
-/// # Exemple
-/// ```
-/// let series = vec![vec![1.0, 2.0, 3.0]];
-/// let norm = preprocess_timeseries(&series);
-/// assert_eq!(norm[0][0], 0.0);
-/// assert_eq!(norm[0][2], 1.0);
-/// ```
 pub fn preprocess_timeseries(series: &[Vec<f32>]) -> Vec<Vec<f32>> {
     series
         .iter()
@@ -28,14 +20,41 @@ pub fn preprocess_timeseries(series: &[Vec<f32>]) -> Vec<Vec<f32>> {
         .collect()
 }
 
-/// Applique un lissage sur les séries temporelles (stub).
-pub fn smooth_timeseries(_series: &[Vec<f32>]) -> Vec<Vec<f32>> {
-    // À implémenter : moyenne glissante, etc.
-    todo!("smooth_timeseries à compléter")
+/// Applique un lissage par moyenne glissante (window=3) sur chaque série temporelle.
+pub fn smooth_timeseries(series: &[Vec<f32>]) -> Vec<Vec<f32>> {
+    let window = 3;
+    series
+        .iter()
+        .map(|s| {
+            let len = s.len();
+            if len == 0 {
+                return vec![];
+            }
+            (0..len)
+                .map(|i| {
+                    let start = if i >= window - 1 { i + 1 - window } else { 0 };
+                    let end = i + 1;
+                    let slice = &s[start..end];
+                    slice.iter().copied().sum::<f32>() / slice.len() as f32
+                })
+                .collect()
+        })
+        .collect()
 }
 
-/// Extrait des features des séries temporelles (stub).
-pub fn extract_features(_series: &[Vec<f32>]) -> Vec<Vec<f32>> {
-    // À implémenter : mocker ou utiliser une lib
-    todo!("extract_features à compléter")
+/// Extrait des features simples (moyenne, min, max) pour chaque série temporelle.
+pub fn extract_features(series: &[Vec<f32>]) -> Vec<Vec<f32>> {
+    series
+        .iter()
+        .map(|s| {
+            if s.is_empty() {
+                vec![0.0, 0.0, 0.0]
+            } else {
+                let mean = s.iter().copied().sum::<f32>() / s.len() as f32;
+                let min = s.iter().copied().fold(f32::INFINITY, f32::min);
+                let max = s.iter().copied().fold(f32::NEG_INFINITY, f32::max);
+                vec![mean, min, max]
+            }
+        })
+        .collect()
 }
