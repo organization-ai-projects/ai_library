@@ -10,8 +10,14 @@ if [ -z "$BRANCH" ]; then
 fi
 
 if [[ "$BRANCH" == "main" || "$BRANCH" == "dev" ]]; then
-  echo "⛔️ Interdiction d'opérer sur la branche $BRANCH ! Utilisez une branche de feature."
-  exit 1
+  # Autorise le merge via PR en CI (GitHub Actions)
+  if [ -n "$GITHUB_ACTIONS" ]; then
+    echo "[check_branch] Merge PR autorisé sur $BRANCH en CI."
+    exit 0
+  else
+    echo "⛔️ Interdiction d'opérer sur la branche $BRANCH ! Utilisez une branche de feature."
+    exit 1
+  fi
 fi
 
 # Si tout est ok
