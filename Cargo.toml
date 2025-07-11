@@ -1,0 +1,20 @@
+[package]
+name = "ai_library"
+version = "0.1.0"
+edition = "2021"
+authors = ["Rémi Bezot <bezot.remi@gmail.com>"]
+description = "Librairie AI minimaliste pour usage partagé."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/remibezot/ai_library"
+documentation = "https://docs.rs/ai_library"
+readme = "README.md"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+csv = "1"
+serde_json = "1"
+image = "0.24"
+hound = "3"
+opencv = "0.66"

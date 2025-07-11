@@ -1,0 +1,39 @@
+# Fichiers et dossiers générés par Rust/Cargo
+/target/
+**/*.rs.bk
+
+# Fichiers de configuration d'environnement
+.env
+.env.*
+
+# Fichiers de log
+*.log
+
+# Fichiers temporaires
+*.tmp
+*.swp
+*.swo
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers de l'éditeur
+.idea/
+.vscode/
+*.code-workspace
+
+# Fichiers de dépendances
+Cargo.lock
+
+# Fichiers de build
+/build/
+dist/
+out/
+
+# Fichiers de test
+coverage/
+*.lcov
+
+# Fichiers de sauvegarde
+*~
