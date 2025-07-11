@@ -14,14 +14,14 @@ else
   MSG_DELETE_MISSING="⛔️ safe_delete_and_recreate_branch.sh script is missing!"
   MSG_DONE="✅ Post-PR pipeline completed."
 fi
-if [ -f ./sync_main_with_remote.sh ]; then
-  bash ./sync_main_with_remote.sh
+if [ -f ./scripts/bash/pipelines/sync_main_with_remote.sh ]; then
+  bash ./scripts/bash/pipelines/sync_main_with_remote.sh
 else
   echo "$MSG_SYNC_MISSING"
   exit 1
 fi
-if [ -f ./safe_delete_and_recreate_branch.sh ]; then
-  bash ./safe_delete_and_recreate_branch.sh
+if [ -f ./scripts/bash/pipelines/safe_delete_and_recreate_branch.sh ]; then
+  bash ./scripts/bash/pipelines/safe_delete_and_recreate_branch.sh
 else
   echo "$MSG_DELETE_MISSING"
   exit 1
