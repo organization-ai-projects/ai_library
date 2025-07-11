@@ -12,15 +12,9 @@ readme = "README.md"
 [lib]
 path = "src/lib.rs"
 
-[[bin]]
-name = "install_hooks"
-path = "bin/install_hooks.rs"
-
 [dependencies]
 csv = "1"
 serde_json = "1"
 image = "0.24"
 hound = "3"
-ndarray = "0.15"
-rand = "0.8"
-mp4parse = "0.17.0"
+opencv = "0.66"
