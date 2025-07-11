@@ -1,10 +1,5 @@
-git add -A
-git commit -m "$msg"
-echo "✅ Commit effectué."
 #!/bin/bash
 # Add all files and commit with a message (EN/FR)
-
-
 
 # Sélection DRY de la langue
 source "$(dirname "$0")/../utils/select_lang.sh"
