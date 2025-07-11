@@ -22,8 +22,4 @@ if git diff --cached --quiet; then
 fi
 read -p "$MSG_COMMIT_PROMPT" msg
 git commit -m "$msg"
-<<<<<<< HEAD
 echo "$MSG_COMMIT_DONE"
-=======
-echo "$MSG_COMMIT_DONE"
->>>>>>> 01a3a24b2c1078c862b77eb7e462fe6d47fe6fc0
