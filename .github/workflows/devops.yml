@@ -1,4 +1,4 @@
-name: CI Rust Pipeline
+name: DevOps Rust Pipeline
 
 on:
   pull_request:
