@@ -1,0 +1,30 @@
+name: PR Notification
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  notify-author:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notification post-fusion PR
+        if: github.event.pull_request.merged == true
+        env:
+          LANG: ${{ secrets.WORKFLOW_LANG }}
+        run: |
+          if [ "$LANG" = "en" ]; then
+            echo "✅ Your Pull Request has been merged!"
+            echo "➡️ To continue development:"
+            echo "1. Sync your local main branch with remote (scripts/bash/pipelines/after_pr_pipeline.sh)"
+            echo "2. Delete your feature/development branch (scripts/bash/git/branch/delete_branch.sh)"
+            echo "3. Create a new branch for the next feature."
+            echo "4. Never work directly on main/dev."
+          else
+            echo "✅ Ta Pull Request a été fusionnée !"
+            echo "➡️ Pour continuer le développement :"
+            echo "1. Synchronise ta branche principale locale avec le remote (scripts/bash/pipelines/after_pr_pipeline.sh)"
+            echo "2. Supprime ta branche de feature/de développement (scripts/bash/git/branch/delete_branch.sh)"
+            echo "3. Recrée une nouvelle branche pour la prochaine feature."
+            echo "4. Ne travaille jamais sur main/dev directement."
+          fi
