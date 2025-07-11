@@ -6,6 +6,12 @@ source "$(dirname "$0")/../utils/select_lang.sh"
 
 if [ -f ./scripts/bash/git/commit/add_commit.sh ]; then
   bash ./scripts/bash/git/commit/add_commit.sh
+  # Check if there are still uncommitted changes
+  if [ -n "$(git status --porcelain)" ]; then
+    echo "⚠️ add_commit.sh did not commit changes. Falling back to manual commit."
+    git add .
+    git commit -m "Fallback: Committing changes"
+  fi
 else
   if [ "$LANG" = "fr" ]; then
     echo "⛔️ Fichier add_commit.sh introuvable. Arrêt du script."
